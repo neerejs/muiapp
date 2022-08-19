@@ -123,11 +123,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import Feed from './Feed.js';
 import Pages from './Pages.js';
 import './Navbar.css';
+import { createTheme, Stack, ThemeProvider , Grid} from "@mui/material";
+import { useState } from "react";
 import {
     AccountBox,
     Article,
@@ -217,8 +216,16 @@ export default function NavbarFeed() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const [mode, setMode] = useState("dark");
+
+    const darkTheme = createTheme({
+      palette: {
+        mode: mode,
+      },
+    });
 
     return (
+        <ThemeProvider theme={darkTheme}>
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
@@ -236,7 +243,7 @@ export default function NavbarFeed() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                    Neerej Site with MUI
+                    GenUnion
           </Typography>
                 </Toolbar>
             </AppBar>
@@ -273,5 +280,6 @@ export default function NavbarFeed() {
                 
             </Box>
         </Box>
+                        </ThemeProvider>
     );
 }

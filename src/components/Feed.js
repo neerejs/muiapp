@@ -1,34 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Tab, Tabs } from 'react-bootstrap';
+
 import * as contentful from 'contentful';
 import {
     Grid, TableCell, TableRow, Table, TableHead, TableBody, Box,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
     Card,
     CardContent
 
-
 } from '@mui/material';
-import {
-    AccountBox,
-    Article,
-    Group,
-    Home,
-    ModeNight,
-    Person,
-    Settings,
-    Storefront,
 
-} from "@mui/icons-material";
-import Sidebar from './Sidebar';
+import Tab from '@mui/material/Tab';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import Typography from '@mui/material/Typography';
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import { styled } from '@mui/material/styles';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+
+import IconButton from '@mui/material/IconButton';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { createTheme,ThemeProvider } from "@mui/material";
+
+const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
+}));
 
 const Feed = () => {
+    const [value, setValue] = React.useState('1');
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
     const [students, setStudents] = useState([]);
     useEffect(() => {
 
@@ -56,6 +73,13 @@ const Feed = () => {
 
 
     }
+    const [mode, setMode] = useState("dark");
+
+    const darkTheme = createTheme({
+      palette: {
+        mode: mode,
+      },
+    });
 
     const getStudents = () => {
         let contentsArray = []
@@ -66,6 +90,7 @@ const Feed = () => {
             count += 1
 
             contentsArray.push(
+                
                 <TableRow>
                     <TableCell>{count}</TableCell>
                     <TableCell>{kid.fields.name}</TableCell>
@@ -109,42 +134,42 @@ const Feed = () => {
 
             <Grid container spacing={4}>
                 <Grid item md={3} className="col-margin">
-                    <Card className='boxes' >
+                    <Card className='boxes' sx={{ backgroundColor: "#8f5451" , textAlign:'center'}}>
                         <CardContent>
-                            Number of Students:
-                    <br></br>
-                            {studentCount}
+                            Number of Students: 
+                    
+                            {' '+studentCount}
                         </CardContent>
                     </Card>
                 </Grid>
 
                 <Grid item md={3} className="col-margin">
-                    <Card className='boxes' >
+                    <Card className='boxes' sx={{ backgroundColor: "#51688f" , textAlign:'center'}}>
                         <CardContent>
-                            3.5+ GPA :
-                        <br></br>
-                            {gpaCount}
+                            3.5+ GPA: 
+                        
+                            {' '+gpaCount}
                         </CardContent>
                     </Card>
                 </Grid>
 
 
                 <Grid item md={3} className="col-margin">
-                    <Card className='boxes' >
-                        <CardContent>
-                            Rutgers Students :
-                        <br></br>
-                            {rutgersCount}
+                    <Card className='boxes' sx={{ backgroundColor: "#578f51", textAlign:'center' }}>
+                        <CardContent >
+                            Rutgers Students: 
+                        
+                            {' '+rutgersCount}
                         </CardContent>
                     </Card>
                 </Grid>
 
                 <Grid item md={3} className="col-margin">
-                    <Card className='boxes' >
+                    <Card className='boxes' sx={{ backgroundColor: "#70518f" , textAlign:'center'}}>
                         <CardContent>
-                            Verified Students :
-                        <br></br>
-                            {verifiedCount}
+                            Verified Students: 
+                        
+                            {' '+verifiedCount}
                         </CardContent>
                     </Card>
                 </Grid>
@@ -158,8 +183,9 @@ const Feed = () => {
 
     return (
         <>
-        
-            <Grid container spacing={3}>
+<Box>
+            <Grid container spacing={3} sx={{backgroundColor:"black"}}>
+                
                 {/* <Grid item md={1}>
 
                 </Grid> */}
@@ -191,10 +217,73 @@ const Feed = () => {
                 </Grid>
 
                 <Grid item md={3}>
-                    Right Panel
+                    <Box sx={{ width: '100%', typography: 'body1' }}>
+                        <TabContext value={value}>
+                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                <TabList onChange={handleChange} aria-label="lab API tabs example">
+                                    <Tab label="Notes" value="1" />
+                                    <Tab label="Tasks" value="2" />
+                                    <Tab label="Teams" value="3" />
+                                </TabList>
+                            </Box>
+                            <TabPanel value="1">Notes Data</TabPanel>
+                            <TabPanel value="2">Tasks Data</TabPanel>
+                            <TabPanel value="3">Teams Data</TabPanel>
+                        </TabContext>
+                    </Box>
+
+                    <div>
+                        <Accordion sx={{marginBottom:"10px"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography>Update 1</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion sx={{marginBottom:"10px"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>Update 2</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion sx={{marginBottom:"10px"}}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>Update 3</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                        
+                    </div>
                 </Grid>
 
             </Grid>
+            </Box>
         </>
     )
 }

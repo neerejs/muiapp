@@ -1,31 +1,30 @@
 import React from 'react'
-import { Container,Row, Col} from 'react-bootstrap';
-import Navbar from './NavbarFeed';
-import Sidebar from './Sidebar';
 import { useState } from "react";
-import { Box, createTheme, Stack, ThemeProvider } from "@mui/material";
+import { createTheme, Stack, ThemeProvider } from "@mui/material";
+
 const Pages = () => {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
 
   const darkTheme = createTheme({
     palette: {
       mode: mode,
     },
   });
-    return (
-      <>
-      
-        
-         
-          <Stack >
-           
-                <div>This is the Pages page</div>
-             
-          </Stack>
-        
+  return (
+    <>
 
-</>
-    )
+
+      <ThemeProvider theme={darkTheme}>
+        <Stack >
+
+          <div>This is the Pages page</div>
+
+        </Stack>
+      </ThemeProvider>
+
+
+    </>
+  )
 }
 
 export default Pages

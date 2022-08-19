@@ -3,7 +3,6 @@ import {
     Article,
     Group,
     Home,
-    ModeNight,
     Person,
     Settings,
     Storefront,
@@ -14,11 +13,9 @@ import {
     ListItem,
     ListItemButton,
     ListItemIcon,
-    ListItemText,
-    Switch,
+    ListItemText
   } from "@mui/material";
   import React from "react";
-  import { Grid } from '@mui/material';
   
   const Sidebar = () => {
     return (

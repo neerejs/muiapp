@@ -1,14 +1,10 @@
-import Sidebar from "./components/Sidebar";
-import Feed from "./components/Feed";
-// import Rightbar from "./components/Rightbar";
-import { Box, createTheme, Stack, ThemeProvider , Grid} from "@mui/material";
+import { createTheme, Stack, ThemeProvider , Grid} from "@mui/material";
 import NavbarFeed from "./components/NavbarFeed";
-// import Add from "./components/Add";
 import { useState } from "react";
-import { Col, Row, Container } from "react-bootstrap";
+
 
 function App() {
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
 
   const darkTheme = createTheme({
     palette: {
@@ -21,17 +17,9 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       
       <Stack >
-
-        
           <Grid item>
           <NavbarFeed />
           </Grid>
-        
-        {/* <Row>
-          <Col>
-            
-          </Col>
-        </Row> */}
       </Stack>
       </ThemeProvider>
     </>
